@@ -1,0 +1,11 @@
+<?php
+class FrmCliente {
+    private float $credito; // Crédito del cliente
+
+    public function __construct(float $credito) {
+        $this->credito = $credito;
+    }
+
+    public function consultar(): void {
+        echo "Crédito: " . $this->credito . "<br>";
+?>

@@ -1,0 +1,16 @@
+<?php
+class FrmEmpresa {
+    private string $codigo; // Código único de la empresa
+    private string $nombre; // Nombre de la empresa
+
+    public function __construct(string $codigo, string $nombre) {
+        $this->codigo = $codigo;
+        $this->nombre = $nombre;
+    }
+
+    public function consultar(): void {
+        echo "Código: " . $this->codigo . "<br>";
+        echo "Nombre: " . $this->nombre . "<br>";
+    }
+}
+?>

@@ -1,0 +1,42 @@
+<?php
+require_once '../Modelo/Vendedor.php'; // Incluye la clase Vendedor
+
+class CtrVendedor {
+    public function crearVendedor(array $datos): bool {
+        $vendedor = new Vendedor(
+            $datos['codigo'],
+            $datos['email'],
+            $datos['nombre'],
+            $datos['telefono'],
+            $datos['carne'],
+            $datos['direccion']
+        );
+        return $vendedor->guardar(); // Asumiendo que tienes un método guardar() en la clase Vendedor
+    }
+
+    public function consultarVendedor(string $id): ?Vendedor {
+        return Vendedor::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Vendedor
+    }
+
+    public function actualizarVendedor(string $id, array $datos): bool {
+        $vendedor = Vendedor::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Vendedor
+        if ($vendedor) {
+            $vendedor->setNombre($datos['nombre']); // Asumiendo que tienes métodos setter en la clase Vendedor
+            $vendedor->setEmail($datos['email']);
+            $vendedor->setTelefono($datos['telefono']);
+            $vendedor->setCarne($datos['carne']);
+            $vendedor->setDireccion($datos['direccion']);
+            return $vendedor->actualizar(); // Asumiendo que tienes un método actualizar() en la clase Vendedor
+        }
+        return false;
+    }
+
+    public function eliminarVendedor(string $id): bool {
+        $vendedor = Vendedor::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Vendedor
+        if ($vendedor) {
+            return $vendedor->eliminar(); // Asumiendo que tienes un método eliminar() en la clase Vendedor
+        }
+        return false;
+    }
+}
+?>

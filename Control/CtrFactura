@@ -1,0 +1,32 @@
+<?php
+ require_once '../Modelo/Factura.php'; // Incluye la clase Factura
+
+ class CtrFactura {
+     public function crearFactura(array $datos): bool {
+         $factura = new Factura($datos['numero'], $datos['fecha'], $datos['total']);
+         return $factura->guardar(); // Asumiendo que tienes un método guardar() en la clase Factura
+     }
+
+     public function consultarFactura(string $id): ?Factura {
+         return Factura::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Factura
+     }
+
+     public function actualizarFactura(string $id, array $datos): bool {
+         $factura = Factura::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Factura
+         if ($factura) {
+             $factura->setFecha($datos['fecha']); // Asumiendo que tienes métodos setter en la clase Factura
+             $factura->setTotal($datos['total']);
+             return $factura->actualizar(); // Asumiendo que tienes un método actualizar() en la clase Factura
+         }
+         return false;
+     }
+
+     public function eliminarFactura(string $id): bool {
+         $factura = Factura::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Factura
+         if ($factura) {
+             return $factura->eliminar(); // Asumiendo que tienes un método eliminar() en la clase Factura
+         }
+         return false;
+     }
+ }
+?>

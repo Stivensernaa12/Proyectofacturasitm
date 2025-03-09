@@ -1,0 +1,35 @@
+<?php
+  require_once '../Modelo/Cliente.php'; // Incluye la clase Cliente
+
+  class CtrCliente {
+      public function crearCliente(array $datos): bool {
+          $cliente = new Cliente($datos['codigo'], $datos['nombre'], $datos['email'], $datos['telefono'], $datos['direccion'], $datos['credito']);
+          return $cliente->guardar(); // Asumiendo que tienes un método guardar() en la clase Cliente
+      }
+
+      public function consultarCliente(string $id): ?Cliente {
+          return Cliente::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Cliente
+      }
+
+      public function actualizarCliente(string $id, array $datos): bool {
+          $cliente = Cliente::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Cliente
+          if ($cliente) {
+              $cliente->setNombre($datos['nombre']); // Asumiendo que tienes métodos setter en la clase Cliente
+              $cliente->setEmail($datos['email']);
+              $cliente->setTelefono($datos['telefono']);
+              $cliente->setDireccion($datos['direccion']);
+              $cliente->setCredito($datos['credito']);
+              return $cliente->actualizar(); // Asumiendo que tienes un método actualizar() en la clase Cliente
+          }
+          return false;
+      }
+
+      public function eliminarCliente(string $id): bool {
+          $cliente = Cliente::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Cliente
+          if ($cliente) {
+              return $cliente->eliminar(); // Asumiendo que tienes un método eliminar() en la clase Cliente
+          }
+          return false;
+      }
+  }
+?>

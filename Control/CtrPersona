@@ -1,0 +1,33 @@
+<?php
+require_once '../Modelo/Persona.php'; // Incluye la clase Persona
+
+class CtrPersona {
+    public function crearPersona(array $datos): bool {
+        $persona = new Persona($datos['codigo'], $datos['email'], $datos['nombre'], $datos['telefono']);
+        return $persona->guardar(); // Asumiendo que tienes un método guardar() en la clase Persona
+    }
+
+    public function consultarPersona(string $id): ?Persona {
+        return Persona::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Persona
+    }
+
+    public function actualizarPersona(string $id, array $datos): bool {
+        $persona = Persona::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Persona
+        if ($persona) {
+            $persona->setNombre($datos['nombre']); // Asumiendo que tienes métodos setter en la clase Persona
+            $persona->setEmail($datos['email']);
+            $persona->setTelefono($datos['telefono']);
+            return $persona->actualizar(); // Asumiendo que tienes un método actualizar() en la clase Persona
+        }
+        return false;
+    }
+
+    public function eliminarPersona(string $id): bool {
+        $persona = Persona::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Persona
+        if ($persona) {
+            return $persona->eliminar(); // Asumiendo que tienes un método eliminar() en la clase Persona
+        }
+        return false;
+    }
+}
+?>

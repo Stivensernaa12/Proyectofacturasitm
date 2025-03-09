@@ -1,0 +1,22 @@
+<?php
+class FrmProductosPorFactura {
+    private int $cantidad; // Cantidad de productos en la factura
+    private float $subtotal; // Subtotal calculado (cantidad * valor unitario)
+    private int $codigoFactura; // Código de la factura asociada
+    private string $codigoProducto; // Código del producto asociado
+
+    public function __construct(int $cantidad, float $subtotal, int $codigoFactura, string $codigoProducto) {
+        $this->cantidad = $cantidad;
+        $this->subtotal = $subtotal;
+        $this->codigoFactura = $codigoFactura;
+        $this->codigoProducto = $codigoProducto;
+    }
+
+    public function consultar(): void {
+        echo "Cantidad: " . $this->cantidad . "<br>";
+        echo "Subtotal: " . $this->subtotal . "<br>";
+        echo "Código Factura: " . $this->codigoFactura . "<br>";
+        echo "Código Producto: " . $this->codigoProducto . "<br>";
+    }
+}
+?>

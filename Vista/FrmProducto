@@ -1,0 +1,22 @@
+<?php
+class FrmProducto {
+    private string $codigo; // Código único del producto
+    private string $nombre; // Nombre del producto
+    private int $stock; // Cantidad disponible en stock
+    private float $valorUnitario; // Precio unitario del producto
+
+    public function __construct(string $codigo, string $nombre, int $stock, float $valorUnitario) {
+        $this->codigo = $codigo;
+        $this->nombre = $nombre;
+        $this->stock = $stock;
+        $this->valorUnitario = $valorUnitario;
+    }
+
+    public function consultar(): void {
+        echo "Código: " . $this->codigo . "<br>";
+        echo "Nombre: " . $this->nombre . "<br>";
+        echo "Stock: " . $this->stock . "<br>";
+        echo "Valor Unitario: " . $this->valorUnitario . "<br>";
+    }
+}
+?>

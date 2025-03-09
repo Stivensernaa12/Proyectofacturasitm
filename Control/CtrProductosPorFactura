@@ -1,0 +1,22 @@
+<?php
+require_once '../Modelo/ProductosPorFactura.php'; // Incluye la clase ProductosPorFactura
+
+class CtrProductosPorFactura {
+    public function agregarProducto(array $datos): bool {
+        $productoPorFactura = new ProductosPorFactura($datos['cantidad'], $datos['subtotal'], $datos['codigoFactura'], $datos['codigoProducto']);
+        return $productoPorFactura->guardar(); // Asumiendo que tienes un método guardar() en la clase ProductosPorFactura
+    }
+
+    public function consultarProducto(string $id): ?ProductosPorFactura {
+        return ProductosPorFactura::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase ProductosPorFactura
+    }
+
+    public function eliminarProducto(string $id): bool {
+        $productoPorFactura = ProductosPorFactura::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase ProductosPorFactura
+        if ($productoPorFactura) {
+            return $productoPorFactura->eliminar(); // Asumiendo que tienes un método eliminar() en la clase ProductosPorFactura
+        }
+        return false;
+    }
+}
+?>

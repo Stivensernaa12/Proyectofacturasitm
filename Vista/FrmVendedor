@@ -1,0 +1,16 @@
+<?php
+ class FrmVendedor {
+    private int $carne; // Número de carné del vendedor
+    private string $direccion; // Dirección del vendedor
+
+    public function __construct(int $carne, string $direccion) {
+        $this->carne = $carne;
+        $this->direccion = $direccion;
+    }
+
+    public function consultar(): void {
+        echo "Carné: " . $this->carne . "<br>";
+        echo "Dirección: " . $this->direccion . "<br>";
+    }
+}
+?>

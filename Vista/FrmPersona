@@ -1,0 +1,33 @@
+<?php 
+require_once '../Control/CtrPersona.php'; // Incluye la clase de control
+
+crequire_once '../Control/CtrPersona.php'; // Incluye la clase de control
+
+class FrmPersona {
+    private string $codigo;
+    private string $email;
+    private string $nombre;
+    private string $telefono;
+
+    public function __construct(string $codigo, string $email, string $nombre, string $telefono) {
+        $this->codigo = $codigo;
+        $this->email = $email;
+        $this->nombre = $nombre;
+        $this->telefono = $telefono;
+    }
+
+    public function mostrarDatos(): void {
+        $ctrPersona = new CtrPersona();
+        $persona = $ctrPersona->obtenerPersona($this->codigo); // Obtener datos del controlador
+
+        if ($persona) {
+            echo "Código: " . $persona->getCodigo() . "<br>";
+            echo "Email: " . $persona->getEmail() . "<br>";
+            echo "Nombre: " . $persona->getNombre() . "<br>";
+            echo "Teléfono: " . $persona->getTelefono() . "<br>";
+        } else {
+            echo "Persona no encontrada.";
+        }
+    }
+}
+?>

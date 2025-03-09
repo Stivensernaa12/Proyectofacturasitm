@@ -1,0 +1,40 @@
+<?php
+require_once '../Modelo/Empresa.php'; // Incluye la clase Empresa
+
+class CtrEmpresa {
+    public function crearEmpresa(array $datos): bool {
+        $empresa = new Empresa(
+            $datos['codigo'],
+            $datos['nombre'],
+            $datos['direccion'],
+            $datos['telefono'],
+            $datos['email']
+        );
+        return $empresa->guardar(); // Asumiendo que tienes un método guardar() en la clase Empresa
+    }
+
+    public function consultarEmpresa(string $id): ?Empresa {
+        return Empresa::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Empresa
+    }
+
+    public function actualizarEmpresa(string $id, array $datos): bool {
+        $empresa = Empresa::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Empresa
+        if ($empresa) {
+            $empresa->setNombre($datos['nombre']); // Asumiendo que tienes métodos setter en la clase Empresa
+            $empresa->setDireccion($datos['direccion']);
+            $empresa->setTelefono($datos['telefono']);
+            $empresa->setEmail($datos['email']);
+            return $empresa->actualizar(); // Asumiendo que tienes un método actualizar() en la clase Empresa
+        }
+        return false;
+    }
+
+    public function eliminarEmpresa(string $id): bool {
+        $empresa = Empresa::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Empresa
+        if ($empresa) {
+            return $empresa->eliminar(); // Asumiendo que tienes un método eliminar() en la clase Empresa
+        }
+        return false;
+    }
+}
+?>

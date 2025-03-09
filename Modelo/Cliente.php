@@ -1,5 +1,4 @@
 <?php
-// Clase Cliente que hereda de Persona
 class Cliente extends Persona {
     private float $credito; // Crédito disponible del cliente
 }
@@ -21,4 +20,4 @@ class Cliente extends Persona {
         $this->credito = $credito;
     }
 }
-?>
+?> 
