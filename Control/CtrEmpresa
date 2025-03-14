@@ -1,40 +1,74 @@
 <?php
-require_once '../Modelo/Empresa.php'; // Incluye la clase Empresa
+require_once '../Modelo/Empresa.php';
 
 class CtrEmpresa {
     public function crearEmpresa(array $datos): bool {
-        $empresa = new Empresa(
-            $datos['codigo'],
-            $datos['nombre'],
-            $datos['direccion'],
-            $datos['telefono'],
-            $datos['email']
-        );
-        return $empresa->guardar(); // Asumiendo que tienes un método guardar() en la clase Empresa
+        try {
+            // Validación de datos (ejemplo)
+            if (!isset($datos['codigo'], $datos['nombre'], $datos['direccion'], $datos['telefono'], $datos['email'])) {
+                throw new Exception("Datos incompletos para crear empresa.");
+            }
+
+            $empresa = new Empresa(
+                $datos['codigo'],
+                $datos['nombre'],
+                $datos['direccion'],
+                $datos['telefono'],
+                $datos['email']
+            );
+            return $empresa->guardar();
+        } catch (Exception $e) {
+            error_log("Error al crear empresa: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function consultarEmpresa(string $id): ?Empresa {
-        return Empresa::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Empresa
+        try {
+            return Empresa::obtenerPorId($id);
+        } catch (Exception $e) {
+            error_log("Error al consultar empresa: " . $e->getMessage());
+            return null;
+        }
     }
 
     public function actualizarEmpresa(string $id, array $datos): bool {
-        $empresa = Empresa::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Empresa
-        if ($empresa) {
-            $empresa->setNombre($datos['nombre']); // Asumiendo que tienes métodos setter en la clase Empresa
-            $empresa->setDireccion($datos['direccion']);
-            $empresa->setTelefono($datos['telefono']);
-            $empresa->setEmail($datos['email']);
-            return $empresa->actualizar(); // Asumiendo que tienes un método actualizar() en la clase Empresa
+        try {
+            $empresa = Empresa::obtenerPorId($id);
+            if ($empresa) {
+                // Validación de datos (ejemplo)
+                if (isset($datos['nombre'])) {
+                    $empresa->setNombre($datos['nombre']);
+                }
+                if (isset($datos['direccion'])) {
+                    $empresa->setDireccion($datos['direccion']);
+                }
+                if (isset($datos['telefono'])) {
+                    $empresa->setTelefono($datos['telefono']);
+                }
+                if (isset($datos['email'])) {
+                    $empresa->setEmail($datos['email']);
+                }
+                return $empresa->actualizar();
+            }
+            return false;
+        } catch (Exception $e) {
+            error_log("Error al actualizar empresa: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 
     public function eliminarEmpresa(string $id): bool {
-        $empresa = Empresa::obtenerPorId($id); // Asumiendo que tienes un método obtenerPorId() estático en la clase Empresa
-        if ($empresa) {
-            return $empresa->eliminar(); // Asumiendo que tienes un método eliminar() en la clase Empresa
+        try {
+            $empresa = Empresa::obtenerPorId($id);
+            if ($empresa) {
+                return $empresa->eliminar();
+            }
+            return false;
+        } catch (Exception $e) {
+            error_log("Error al eliminar empresa: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 }
 ?>
